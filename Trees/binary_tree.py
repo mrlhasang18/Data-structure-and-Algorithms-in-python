@@ -1,6 +1,10 @@
-# Binary search tree implementation
+# In this exercise I am doing the following :
+# - pre and post order traversal in a Binary Search Tree
+# - Find minimun and maximum element in a Binary Tree
 
-#  Node creation
+
+# node creation
+
 class BST:
     def __init__(self,data):
         self.data = data
@@ -10,36 +14,67 @@ class BST:
     def add_child(self,data):
         if data == self.data:
             return
-        #adding in left
+        
         if data < self.data:
             if self.left:
                 self.left.add_child(data)
             else:
                 self.left = BST(data)
                 
-        # adding in  right
         else:
             if self.right:
                 self.right.add_child(data)
             else:
                 self.right = BST(data)
                 
-    # In order traversal
-    def in_order_traversal(self):
+    def post_order_traversal(self):
         elements = []
-        
-        # visit the left node
         if self.left:
-            elements += self.left.in_order_traversal()
-            
-        # visit base node
-        elements.append(self.data)
-        
-        #visit the right node
+            elements += self.left.post_order_traversal()
         if self.right:
-            elements += self.right.in_order_traversal()
+            elements += self.right.post_order_traversal()
+        elements.append(self.data)
+        return elements
+        
+    def pre_order_traversal(self):
+        elements = [self.data]
+        if self.left:
+            elements += self.left.pre_order_traversal()
+        if self.right:
+            elements += self.right.pre_order_traversal()
+
         return elements
     
+    def inorder_traversal(self):
+        element= []
+        
+        # left node
+        if self.left:
+            element += self.left.inorder_traversal()
+        
+        # base node
+        element.append(self.data)
+        
+        # right node
+        if self.right:
+            element += self.right.inorder_traversal()
+            
+        return element
+        
+    # highest element
+    
+    def find_max(self):
+        if self.right is None:
+            return self.data
+        return self.right.find_max()
+    
+    # lowest element
+    
+    def find_min(self):
+        if self.left is None:
+            return self.data
+        return self.left.find_min()
+        
     def search(self,val):
         if self.data == val:
             return True
@@ -60,14 +95,23 @@ def build_tree(elements):
         root.add_child(elements[i])
     return root
 
-if __name__ == '__main__':
-    fruit = ["banana","pineapple","mango","apple","guava"]
-    a = build_tree(fruit)
-    print(a.in_order_traversal())
-    
-    # searching in tree
-    print(a.search("mango"))
-    a.add_child("mango")
-    # Binary tree doesn't allow multiple same value like in a set
-    print(a.in_order_traversal())
-    print(a.search("aalu"))
+if __name__ == "__main__":
+    name = ["lhasang","Rakesh","Aayush","Safal","Hari"]
+    name_tree = build_tree(name)
+    print(name_tree.search("lhasang"))
+    name_tree.add_child("lakpa")
+    # inorder traversal
+    print(" --------- Inorder traversal ---------")
+    print(name_tree.inorder_traversal())
+    # post-order traversal
+    print(" --------- Post traversal ---------")
+    print(name_tree.post_order_traversal())
+    # pre-order traversal
+    print(" --------- Pree traversal ---------")
+    print(name_tree.pre_order_traversal())
+    # Largest element
+    print(" --------- Largest element ---------")
+    print(name_tree.find_max())
+    # Smallest element
+    print(" --------- Smallest element ---------")
+    print(name_tree.find_min())
