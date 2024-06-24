@@ -8,5 +8,5 @@
 <h3 >What is Data structure and Algorithms ?</h2>
 <h5>
   - Algorithms : set of instructions that solve a problem. <br>
-  - Data structure: hold and manipulate data when we execute an alogrithm.
+  - Data structure: hold and manipulate data when we execute an alogrithm
 </h5>
